@@ -15,19 +15,17 @@ var gBoard
 
 
 function onInit() { // This is called when the page loads
-
     gBoard = buildBoard(gLevel.SIZE)
     renderBoard(gBoard)
 }
 
 function buildBoard(boardSize) {
-    
+
     const board = []
     for (var i = 0; i < boardSize; i++) {
         board[i] = []
         for (var j = 0; j < boardSize; j++) {
             const cell = {
-                
                 minesAroundCount: 0,
                 isShown: false,
                 isMine: false,
@@ -51,14 +49,14 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             var currCell = board[i][j]
             var className = ''
-            if(currCell.isMine){
+            if (currCell.isMine) {
                 var className = 'mine'
                 currCell = MINE
             } else {
                 currCell = currCell.minesAroundCount
             }
             strHTML += `<td
-            class="${className}" onclick="cellClicked(this, ${i}, ${j})" >${currCell}</td>`
+            class="${className}" onclick="onCellClicked(this, ${i}, ${j})" >${currCell}</td>`
         }
         strHTML += `</tr>`
     }
@@ -69,6 +67,11 @@ function renderBoard(board) {
 }
 
 function onCellClicked(elCell, i, j) {
+    console.log('elCell', elCell)
+    console.log('i', i)
+    console.log('j', j)
+    // if (!elCell[i][j].classList.contains('mine')) elCell.classList.remove('hide')
+    // elCell.style.visibility = (!gBoard[i][j].isMine) ? 'visible' : checkGameOver()
 
 }
 
