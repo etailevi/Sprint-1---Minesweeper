@@ -108,4 +108,3 @@ function expandShown(board, elCell, i, j) {
 
 }
 
-
