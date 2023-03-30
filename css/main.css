@@ -18,3 +18,8 @@ td {
 .mine {
     background-color: tomato;
 }
+
+.shown {
+    background-color: rgb(223, 190, 254);
+    color: black
+}
