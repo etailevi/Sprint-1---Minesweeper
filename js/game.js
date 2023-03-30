@@ -37,7 +37,7 @@ function buildBoard(boardSize) {
     }
     // board[1][1].isMine = true
     // board[2][2].isMine = true
-    getRandMinesIdx(board)
+    randMinesIdx(board)
     findCloseMineNegsCount(board)
     console.log(board)
     return board
@@ -51,7 +51,8 @@ function renderBoard(board) {
         for (var j = 0; j < board[0].length; j++) {
             var className = ''
             strHTML += `<td
-            class="${className}" onclick="onCellClicked(this, ${i}, ${j})"></td>`
+            class="${className}" onclick="onCellClicked(this, ${i}, ${j})"
+            oncontextmenu="onCellMarked(this, ${i}, ${j}, event)">${EMPTY}</td>`
         }
         strHTML += `</tr>`
     }
@@ -74,6 +75,7 @@ function onCellClicked(elCell, i, j) {
         elCell.classList.add('shown')
     }
     if (currCell.isMine) {
+        elCell.style.backgroundColor = 'tomato'
         elCell.innerText = MINE
         checkGameOver()
     }
@@ -81,8 +83,21 @@ function onCellClicked(elCell, i, j) {
     // if(currCell.isMarked || currCell.isShown)
 }
 
-function onCellMarked(elCell, ev) {
+function onCellMarked(elCell,i, j, ev) {
+    ev.preventDefault()
+    var currCell = gBoard[i][j]
+    if (currCell.isShown) return // checks if he is already shown in the board
+    elCell.classList.toggle('marked')
 
+    if (currCell.isMarked) {
+        currCell.isMarked = false
+        elCell.innerHTML = ''
+        if (currCell.isMine) gGame.markedCount--
+    } else {
+        currCell.isMarked = true
+        elCell.innerHTML = FLAG
+        if (currCell.isMine) gGame.markedCount++
+    }
 }
 
 function checkGameOver() {
@@ -93,20 +108,4 @@ function expandShown(board, elCell, i, j) {
 
 }
 
-function getRandMinesIdx(board) {
 
-    var mineCount = 0
-    while (mineCount < gLevel.MINES) {
-        for (var i = 0; i < board.length; i++) {
-            for (var j = 0; j < board[0].length; j++) {
-                // if (!board.isMine) {
-                    if (getRandomIntInclusive(1, 10) < 2) {
-                        board[i][j].isMine = true
-                        mineCount++
-                        console.log('hi')
-                    }
-                // }
-            }
-        }
-    }
-}

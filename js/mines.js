@@ -26,3 +26,21 @@ function setMinesNegsCount(board, rowIdx, colIdx) { // Neighbors-Loop. Return th
     }
     return minesAroundCount
 }
+
+function randMinesIdx(board) {
+
+    var mineCount = 0
+    while (mineCount < gLevel.MINES) {
+        for (var i = 0; i < board.length; i++) {
+            for (var j = 0; j < board[0].length; j++) {
+                // if (!board.isMine) {
+                    if (getRandomIntInclusive(1, 10) < 2) {
+                        board[i][j].isMine = true
+                        mineCount++
+                        console.log('hi')
+                    }
+                // }
+            }
+        }
+    }
+}
