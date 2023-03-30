@@ -12,15 +12,17 @@
 <body onload="onInit()">
     <h1>Mine Sweeper!</h1>
     <div class="btn-container">
-        <button onclick="">easy</button>
-        <button onclick="">medium</button>
-        <button onclick="">expert</button>
+        <p>Choose Your Level:</p>
+        <button onclick="selectMode(this)">Easy (4x4)</button>
+        <button onclick="selectMode(this)">Medium (8 x 8)</button>
+        <button onclick="selectMode(this)">Expert (12 x 12)</button>
     </div>
-    <button class="start-btn" onclick="">🤪</button>
+    <button class="start-btn" onclick="">😊</button>
     <table class="game-board">
         <tbody>
         </tbody>
     </table>
+    <footer>Made by: Etai Levi</footer>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script src="js/mines.js"></script>

@@ -14,6 +14,7 @@ body {
     color: white;
     background-color: rgb(255, 187, 0);
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .btn-container button:hover {
@@ -28,6 +29,7 @@ body {
     font-size: 30px;
     margin-bottom: 10px;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .start-btn:hover {
@@ -56,4 +58,9 @@ td {
 .shown {
     background-color: rgb(223, 190, 254);
     color: black
+}
+
+footer {
+    position: fixed;
+    bottom: 0%;
 }

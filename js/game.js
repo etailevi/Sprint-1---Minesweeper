@@ -20,6 +20,7 @@ function onInit() { // This is called when the page loads
     renderBoard(gBoard)
 }
 
+// Model:
 function buildBoard(boardSize) {
 
     const board = []
@@ -43,6 +44,7 @@ function buildBoard(boardSize) {
     return board
 }
 
+// DOM:
 function renderBoard(board) {
     var strHTML = ''
 
@@ -63,9 +65,7 @@ function renderBoard(board) {
 }
 
 function onCellClicked(elCell, i, j) {
-    console.log('elCell', elCell)
-    console.log('i', i)
-    console.log('j', j)
+
     var currCell = gBoard[i][j]
     if (currCell.isShown || currCell.isMarked) {
         return
