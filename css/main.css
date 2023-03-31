@@ -1,25 +1,31 @@
 body {
     text-align: center;
     font-family: 'Changa One', cursive;
-    background-image: url("/img/8058280.jpg");
+    background-color: cadetblue;
+}
+
+h1 {
+    font-size: 60px;
 }
 
 .btn-container {
     margin-bottom: 30px;
 }
 
-.btn-container button {
+.btn-container button,
+.modal button {
     border: none;
     border-radius: 20px;
     padding: 10px;
+    font-size: 20px;
     color: white;
-    background-color: rgb(255, 187, 0);
+    background-color: rgb(255, 183, 0);
     transition: 0.5s;
     cursor: pointer;
 }
 
 .btn-container button:hover {
-    color: rgb(121, 121, 121);
+    color: rgb(61, 61, 61);
     background-color: rgb(246, 201, 75);
 }
 
@@ -40,16 +46,22 @@ body {
 table {
     border-collapse: collapse;
     margin: auto;
-    font-size: 50px;
+    box-sizing: border-box;
 }
 
 td {
+    font-size: 25px;
     color: white;
-    width: 100px;
-    height: 100px;
+    /* box-sizing: border-box; */
+    width: 60px;
+    height: 60px;
     background-color: rgb(106, 106, 177);
     border: 1px solid black;
 
+}
+
+td:hover {
+    filter: brightness(60%);
 }
 
 .mine {
@@ -59,6 +71,30 @@ td {
 .shown {
     background-color: rgb(223, 190, 254);
     color: black
+}
+
+.marked {
+    background-color: gray;
+}
+
+.modal {
+    display: none;
+    border: solid 3px grey;
+    border-radius: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: rgb(222, 226, 228);
+    color: black;
+    font-size: 32px;
+
+    position: absolute;
+    top: 400px;
+    left: calc(50% - 150px);
+}
+
+.modal button:hover {
+    color: rgb(61, 61, 61);
+    background-color: rgb(246, 201, 75);
 }
 
 footer {
