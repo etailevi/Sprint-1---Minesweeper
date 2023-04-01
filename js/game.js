@@ -101,7 +101,8 @@ function onCellClicked(elCell, i, j) {
             console.log('gGame.shownCount', gGame.shownCount)
             elCell.innerText = EMPTY
             expandShown(gBoard, elCell, i, j)
-        } else if (!elCell.classList.contains('shown')) {
+        } else if (!elCell.classList.contains('shown') &&
+                    gBoard[i][j].isMine === false) {
             elCell.innerText = currCell.minesAroundCount
             elCell.classList.add('shown')
             gGame.shownCount++
@@ -117,7 +118,6 @@ function onCellClicked(elCell, i, j) {
         elCell.innerText = MINE
         checkGameOver()
     }
-    console.log('gGame.shownCount', gGame.shownCount)
     // expandShown(gBoard, elCell, i, j)
     // if{!gGame.is} return
     // if(currCell.isMarked || currCell.isShown)
@@ -177,7 +177,7 @@ function checkGameOver() {
             elHearts.innerText = '💔🤍🤍'
             openModal('You Lose!')
         }
-        return
+        // return
     } else if (gLevel.SIZE ** 2 === gGame.shownCount + gGame.markedCount &&
         gGame.markedCount === gLevel.MINES) {
         // gGame.isVictory = true
