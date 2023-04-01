@@ -72,7 +72,9 @@ function renderBoard() {
         for (var j = 0; j < gLevel.SIZE; j++) {
             var className = ''
             strHTML += `<td
-            class="${className}" onclick="onCellClicked(this, ${i}, ${j})"
+            class="${className}" 
+            data-i="${i}" data-j="${j}"
+            onclick="onCellClicked(this, ${i}, ${j})"
             oncontextmenu="onCellMarked(this, ${i}, ${j}, event)">${EMPTY}</td>`
         }
         strHTML += `</tr>`
@@ -93,21 +95,29 @@ function onCellClicked(elCell, i, j) {
     if (currCell.isShown || currCell.isMarked) {
         return
     } else {
-        if (!currCell.minesAroundCount) elCell.innerText = EMPTY
-        else elCell.innerText = currCell.minesAroundCount
-
-        if (!elCell.classList.contains('shown')) {
+        if (!currCell.minesAroundCount) {
+            elCell.classList.add('shown')
+            gGame.shownCount++
+            console.log('gGame.shownCount', gGame.shownCount)
+            elCell.innerText = EMPTY
+            expandShown(gBoard, elCell, i, j)
+        } else if (!elCell.classList.contains('shown')) {
+            elCell.innerText = currCell.minesAroundCount
+            elCell.classList.add('shown')
             gGame.shownCount++
         }
-        console.log('gGame.shownCount', gGame.shownCount)
-        elCell.classList.add('shown')
+
+        // if (!elCell.classList.contains('shown')) {
+            
+        // }
     }
     if (currCell.isMine) {
         elCell.style.backgroundColor = 'tomato'
-        gGame.shownCount++
+        elCell.classList.add('mine')
         elCell.innerText = MINE
         checkGameOver()
     }
+    console.log('gGame.shownCount', gGame.shownCount)
     // expandShown(gBoard, elCell, i, j)
     // if{!gGame.is} return
     // if(currCell.isMarked || currCell.isShown)
@@ -122,11 +132,13 @@ function onCellMarked(elCell, i, j, ev) {
     if (currCell.isMarked) {
         currCell.isMarked = false
         elCell.innerHTML = ''
-        if (currCell.isMine) gGame.markedCount--
+        gGame.markedCount--
+        console.log('gGame.markedCount', gGame.markedCount)
     } else {
         currCell.isMarked = true
         elCell.innerHTML = FLAG
-        if (currCell.isMine) gGame.markedCount++
+        gGame.markedCount++
+        console.log('gGame.markedCount', gGame.markedCount)
     }
 }
 
@@ -138,9 +150,10 @@ function expandShown(board, elCell, cellI, cellJ) {
             if (i === cellI && j === cellJ) continue
             if (!board[i][j].minesAroundCount && !board[i][j].isMine && !board[i][j].isMarked) {
                 board[i][j].isShown = true
-
-                var elCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
+                elCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
                 elCell.classList.add('shown')
+                gGame.shownCount++
+                console.log('gGame.shownCount', gGame.shownCount)
             }
         }
     }
