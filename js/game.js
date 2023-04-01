@@ -19,7 +19,7 @@ var gGame = {
     isVictory: false
 }
 var gBoard
-var gInterval
+var gTimerInterval
 
 
 
@@ -36,6 +36,8 @@ function onInit() { // This is called when the page loads
     }
     renderBoard()
     closeModal()
+    document.querySelector('#timer').innerText = '00:00'
+    clearInterval(gTimerInterval)
 }
 
 // Model:
@@ -85,6 +87,7 @@ function onCellClicked(elCell, i, j) {
     if (gGame.isFirstClick) {
         gGame.isFirstClick = false
         gBoard = buildBoard(gLevel.SIZE, gLevel.MINES, { i, j })
+        startTimer()
     }
     var currCell = gBoard[i][j]
     if (currCell.isShown || currCell.isMarked) {
@@ -92,7 +95,10 @@ function onCellClicked(elCell, i, j) {
     } else {
         if (!currCell.minesAroundCount) elCell.innerText = EMPTY
         else elCell.innerText = currCell.minesAroundCount
-        gGame.shownCount++
+
+        if (!elCell.classList.contains('shown')) {
+            gGame.shownCount++
+        }
         console.log('gGame.shownCount', gGame.shownCount)
         elCell.classList.add('shown')
     }
@@ -102,6 +108,7 @@ function onCellClicked(elCell, i, j) {
         elCell.innerText = MINE
         checkGameOver()
     }
+    // expandShown(gBoard, elCell, i, j)
     // if{!gGame.is} return
     // if(currCell.isMarked || currCell.isShown)
 }
@@ -123,33 +130,51 @@ function onCellMarked(elCell, i, j, ev) {
     }
 }
 
+function expandShown(board, elCell, cellI, cellJ) {
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i >= board.length) continue
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (j < 0 || j >= board[0].length) continue
+            if (i === cellI && j === cellJ) continue
+            if (!board[i][j].minesAroundCount && !board[i][j].isMine && !board[i][j].isMarked) {
+                board[i][j].isShown = true
+
+                var elCell = document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
+                elCell.classList.add('shown')
+            }
+        }
+    }
+}
+
 function checkGameOver() {
     if (gGame.lifeCount > 0) {
         gGame.lifeCount--
         const elSmileyBtn = document.querySelector('.start-btn')
-        if (gGame.lifeCount === 2) elSmileyBtn.innerText = '🤨'
-        if (gGame.lifeCount === 1) elSmileyBtn.innerText = '😥'
+        const elHearts = document.querySelector('.hearts span')
+        if (gGame.lifeCount === 2) {
+            elSmileyBtn.innerText = '🤨'
+            elHearts.innerText = '❤️❤️🤍'
+        }
+        if (gGame.lifeCount === 1) {
+            elSmileyBtn.innerText = '😥'
+            elHearts.innerText = '❤️🤍🤍'
+        }
         if (gGame.lifeCount === 0) {
             elSmileyBtn.innerText = '😵'
-            var msg = gGame.isVictory ? 'You Won!!!' : 'Game Over'
-            openModal(msg)
+            elHearts.innerText = '💔🤍🤍'
+            openModal('You Lose!')
         }
-
-        console.log('gGame.lifeCount', gGame.lifeCount)
         return
     } else if (gLevel.SIZE ** 2 === gGame.shownCount + gGame.markedCount &&
         gGame.markedCount === gLevel.MINES) {
-        gGame.isVictory = true
-        openModal(msg)
-    } else {
-        gGame.isOn = false
-        clearInterval(gInterval)
-        openModal(msg)
+        // gGame.isVictory = true
+        // var msg = gGame.isVictory ? 'You Won!!!' : 'Game Over'
+        openModal('You Win!!!')
     }
 }
 
 function gameOver() {
-
+    clearInterval(gTimerInterval)
 }
 
 function startOver(elBtn) {
@@ -161,6 +186,7 @@ function openModal(msg) {
     const elSpan = document.querySelector('.msg')
     elSpan.innerText = msg
     elModal.style.display = 'block'
+    gameOver()
 }
 
 function closeModal() {
@@ -168,10 +194,14 @@ function closeModal() {
     elModal.style.display = 'none'
     const elSmileyBtn = document.querySelector('.start-btn')
     elSmileyBtn.innerText = '😊'
+    const elHearts = document.querySelector('.hearts span')
+    elHearts.innerText = '❤️❤️❤️'
+    clearInterval(gTimerInterval)
 }
 
-function expandShown(board, elCell, i, j) {
-
+function startTimer() {
+    var startTime = Date.now()
+    gTimerInterval = setInterval(setTimer, 37, startTime)
 }
 
 function selectMode(size, mines) {

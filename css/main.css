@@ -17,6 +17,7 @@ h1 {
     border: none;
     border-radius: 20px;
     padding: 10px;
+    margin: 5px;
     font-size: 20px;
     color: white;
     background-color: rgb(255, 183, 0);
@@ -27,6 +28,24 @@ h1 {
 .btn-container button:hover {
     color: rgb(61, 61, 61);
     background-color: rgb(246, 201, 75);
+}
+
+.timer,
+.hearts {
+    display: inline-block;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 20px;
+}
+
+.timer span,
+.hearts span {
+    font-size: 30px;
+    padding: 10px;
+    background-color: rgba(240, 248, 255, 0.442);
+    border-radius: 20px;
+    width: 150px;
+    height: 60px;
 }
 
 .start-btn {
@@ -98,6 +117,12 @@ td:hover {
 }
 
 footer {
+    text-align: center;
+    /* width: 100%; */
+    /* background-color: rgb(77, 77, 77); */
+    /* padding-top: 10px; */
+    color: black;
+    /* border-top: 2px solid rgb(255, 255, 255); */
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
 }

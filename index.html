@@ -13,25 +13,35 @@
 </head>
 
 <body onload="onInit()">
-        <h1>Mine Sweeper!</h1>
-        <div class="btn-container">
-            <p>Choose Your Level:</p>
-            <button onclick="selectMode(4, 2)">Beginner (4x4)</button>
-            <button onclick="selectMode(8, 14)">Medium (8x8)</button>
-            <button onclick="selectMode(12, 32)">Expert (12x12)</button>
-        </div>
-        <button class="start-btn" onclick="startOver(this)">😊</button>
-        <table class="game-board">
-            <tbody>
-            </tbody>
-        </table>
+    <h1>Mine Sweeper!</h1>
+    <div class="btn-container">
+        <p>Choose Your Level:</p>
+        <button onclick="selectMode(4, 2)">Beginner (4x4)</button>
+        <button onclick="selectMode(8, 14)">Medium (8x8)</button>
+        <button onclick="selectMode(12, 32)">Expert (12x12)</button>
+    </div>
+    <div class="timer">Timer:<br><br>
+        <span id="timer"><label id="seconds">00</label>:<label id="milliseconds">00</label></span>
+    </div>
+    <button class="start-btn" onclick="startOver()">😊</button>
+    <div class="hearts">
+        Life:<br><br><span>❤️❤️❤️</span>
+    </div>
 
-        <div class="modal">
-            <h3 class="msg"></h3>
-            <button class="restart-btn" onclick="onInit()">Play Again</button>
-        </div>
-        
-    <footer>Made by: Etai Levi</footer>
+    <table class="game-board">
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="modal">
+        <h3 class="msg"></h3>
+        <button class="restart-btn" onclick="onInit()">Play Again</button>
+    </div>
+    <!-- <div class="footer"> -->
+        <footer>
+            Created by: Etai Levi
+        </footer>
+    <!-- </div> -->
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script src="js/mines.js"></script>
