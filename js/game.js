@@ -8,7 +8,7 @@ const FLAG = '🚩'
 
 
 // Model:
-var gLevel = { SIZE: 4, MINES: 2 }
+var gLevel = { SIZE: 8, MINES: 14 }
 var gGame = {
     isOn: false,
     shownCount: 0,
@@ -116,7 +116,7 @@ function onCellClicked(elCell, i, j) {
         elCell.style.backgroundColor = 'tomato'
         elCell.classList.add('mine')
         elCell.innerText = MINE
-        checkGameOver()
+        checkGameOver(elCell)
     }
     // expandShown(gBoard, elCell, i, j)
     // if{!gGame.is} return
@@ -159,7 +159,7 @@ function expandShown(board, elCell, cellI, cellJ) {
     }
 }
 
-function checkGameOver() {
+function checkGameOver(elCell) {
     if (gGame.lifeCount > 0) {
         gGame.lifeCount--
         const elSmileyBtn = document.querySelector('.start-btn')
@@ -175,6 +175,7 @@ function checkGameOver() {
         if (gGame.lifeCount === 0) {
             elSmileyBtn.innerText = '😵'
             elHearts.innerText = '💔🤍🤍'
+            revealMines(elCell)
             openModal('You Lose!')
         }
         // return

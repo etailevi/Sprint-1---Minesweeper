@@ -34,7 +34,7 @@ function setMinesOnBoard(board, boardSize, numOfMines, firstClickPos) {
         currPos.i = getRandomInt(0, boardSize)
         currPos.j = getRandomInt(0, boardSize)
         if (!minePoss.includes(currPos.i && currPos.j) &&
-        currPos.i !== firstClickPos.i && currPos.j  !== firstClickPos.j) {
+            currPos.i !== firstClickPos.i && currPos.j !== firstClickPos.j) {
             minePoss.push(currPos)
         }
     }
@@ -45,3 +45,16 @@ function setMinesOnBoard(board, boardSize, numOfMines, firstClickPos) {
     }
 }
 
+function revealMines(elCell) {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[0].length; j++) {
+            var cell = gBoard[i][j]
+            if (cell.isMine) {
+                elCell.style.backgroundColor = 'tomato'
+                elCell.classList.add('mine')
+                elCell.innerText = MINE
+            }
+        }
+    }
+    return
+}
